@@ -22,7 +22,7 @@ Description: The Game class's constructor method
 Parameters: None
 Return: None
 */
-Game::Game();
+Game::Game(){};
 
 /*
 Name: Game destructor
@@ -30,7 +30,7 @@ Description: The Game class's destructor method. Allows deallocation of used mem
 Parameters: None
 Return: None
 */
-Game::~Game();
+Game::~Game(){};
 
 /*
 Name: setHomeScore method
