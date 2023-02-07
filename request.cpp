@@ -114,12 +114,7 @@ bool Request::execute()
     }
     else
     {
-        /*
-         * Now, our chunk.memory points to a memory block that is chunk.size
-         * bytes big and contains the remote file.
-         */
-
-        printf("%lu bytes retrieved\n", (unsigned long)chunk.size);
+        // chunk.memory points to a memory block that is chunk.size bytes
         jsonString = chunk.memory;
         return true;
     }
