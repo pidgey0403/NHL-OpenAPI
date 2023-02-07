@@ -1,10 +1,16 @@
+/*
+Author: Gabrielle Niamat
+Description: Implementation of Request class. Responsible for calling to the NHL's Open Data API and returning a response.
+Date: Feb 6, 2023
+*/
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <curl/curl.h>
 
-#include "ApiClass.hpp"
+#include "request.hpp"
 
 using namespace std;
 
@@ -14,6 +20,12 @@ struct MemoryStruct
     size_t size;
 };
 
+/*
+Name: WriteMemoryCallback method
+Description: Shows how the write callback function can be used to download data into a chunk of memory instead of storing it in a file
+Parameters: void *contents: contents to add, size_t size: size of a member, size_t nmemb: number of members, void*userp: pointer to memory to write to
+Return: the size of contents in total
+*/
 static size_t
 WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
@@ -36,17 +48,32 @@ WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
     return realsize;
 }
 
-// constructor
+/*
+Name: Request class constructor
+Description: The constructor for the Request class. Sets url data member to the given url endpoint.
+Parameters: string givenURL: cpp string for the API endpoint to parse
+Return: None
+*/
 Request::Request(string givenURL)
 {
     char *cstr = new char[givenURL.length() + 1];
     url = strcpy(cstr, givenURL.c_str());
-}
+};
 
-// destructor
-Request::~Request() {}
+/*
+Name: Request class destructor
+Description: The constructor for the Request class. Deallocates used memory by the class.
+Parameters: None
+Return: None
+*/
+Request::~Request(){};
 
-// A method (execute) that executes the request and retrieves the document from the URL provided on construction; this method returns a boolean value of true on success or false on failure.
+/*
+Name: Execute method for Request class
+Description: The execute method for the Request class. Retrieves document using from the URL endpoint.
+Parameters: None
+Return: Boolean; true if successful retrieval of data, false otherwise
+*/
 bool Request::execute()
 {
     CURL *curl_handle;
@@ -104,11 +131,16 @@ bool Request::execute()
 
     /* we are done with libcurl, so clean it up */
     curl_global_cleanup();
-}
+};
 
-// A method (result) that returns a string object containing the JSON data retrieved on executing the request.
+/*
+Name: Result method for Request class
+Description: The result method for the Request class. Returns a string object containing the JSON data retrieved from the API request.
+Parameters: None
+Return: None
+*/
 string Request::result()
 {
     // return result of JSON data from the request
     return jsonString;
-}
+};
